@@ -1,0 +1,38 @@
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+    <h1>Order</h1>
+    <form method="post", action="{% url 'confirm' %}">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required>
+
+        <fieldset>
+            <legend>Select Your Dishes</legend>
+            <input type="checkbox" id="dish1" name="dishes" value="Sichuan chili chicken">
+            <label for="dish1">Sichuan chili chicken - $12.99</label><br>
+            <input type="checkbox" id="dish2" name="dishes" value="Ma Po tofu">
+            <label for="dish2">Ma Po tofu - $10.99</label><br>
+            <input type="checkbox" id="dish3" name="dishes" value="Singapore curry noodles">
+            <label for="dish3">Singapore curry noodles - $14.99</label><br>
+            <input type="checkbox" id="dish4" name="dishes" value="Steamed grouper">
+            <label for="dish4">Steamed grouper - $35.99</label><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Daily Special</legend>
+            <input type="checkbox" id="special" name="special_dish" value="{{ daily_special }}">
+            <label for="special">{{ daily_special }}</label><br>
+        </fieldset>
+
+        <label for="instructions">Special Instructions:</label>
+
+        <textarea id="instructions" name="instructions" rows="3" cols="40"></textarea>
+
+        <button type="submit">Submit Order</button>
+    </form>
+{% endblock %}
