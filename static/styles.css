@@ -9,7 +9,6 @@ body {
 }
 
 nav {
-    background: url("https://upload.wikimedia.org/wikipedia/commons/6/69/Danghui.svg") repeat;
     padding: 0.5rem;
 }
 
@@ -94,7 +93,7 @@ img {
 
 body::before {
     content: "";
-    background: url("https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg") repeat;
+    background-color: red;
     opacity: 1;
     position: fixed;
     top: 0;

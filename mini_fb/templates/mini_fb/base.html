@@ -7,6 +7,16 @@
         <link rel="stylesheet"  href="{% static 'styles.css' %}">
     </head>
     <body>
+        <header>
+            <h1>Mini Facebook App</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+                    <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+                </ul>
+            </nav>
+
+
         {% block content %}
         {% endblock %}
     </body>
