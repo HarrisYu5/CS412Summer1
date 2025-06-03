@@ -1,3 +1,7 @@
+#File: mini_fb/urls.py
+#Author: Harris Yu 2025-06-03
+# This file contains the URL patterns for the mini_fb app
+
 from django.urls import path
 from .views import  *
 

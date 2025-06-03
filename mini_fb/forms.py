@@ -1,3 +1,6 @@
+#File: mini_fb/forms.py
+#Author: Harris Yu 2025-06-03
+#This file contains the forms we use in the app
 from django import forms
 from .models import Profile, StatusMessage
 

@@ -1,3 +1,7 @@
+#File: mini_fb/models.py
+#Author: Harris Yu 2025-06-03
+#This file contains the models we use in the app, as well as the custom methods associated with them.
+
 from django.db import models
 from django.urls import reverse
 

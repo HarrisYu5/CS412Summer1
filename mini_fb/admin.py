@@ -1,3 +1,6 @@
+#File: mini_fb/admin.py
+#Author: Harris Yu 2025-06-03
+#This file registers the models we use in the app
 from django.contrib import admin
 
 # Register your models here.

@@ -1,3 +1,7 @@
+#File: mini_fb/views.py
+#Author: Harris Yu 2025-06-03
+#This file contains the views we use in the app
+
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from .models import *
