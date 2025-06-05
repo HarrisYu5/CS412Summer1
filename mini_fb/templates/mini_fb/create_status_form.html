@@ -1,13 +1,18 @@
+{#File: mini_fb/create_status_form.html#}
+{#Author: Harris Yu 2025-06-05#}
+{#This is for creating a new status message#}
 {% extends "mini_fb/base.html" %}
 
 {% block content %}
     <h1>Create a New Status</h1>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
         {{form.as_table}}
         </table>
-        <input type="submit" name = "submit" value="Create Status">
+        <label for="files">Upload Images:</label>
+        <input type="file" name="files" multiple>
+        <input type="submit" name="submit" value="Create Status">
     </form>
 {% endblock %}

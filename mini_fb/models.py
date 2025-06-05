@@ -32,3 +32,20 @@ class StatusMessage(models.Model):
     def __str__(self):
         return f"{self.profile.first_name} {self.profile.last_name} {self.message[:20]}"
     
+
+class Image(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    caption = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    image_file = models.ImageField(blank=True)
+
+
+class StatusImage(models.Model):
+    status_message = models.ForeignKey(StatusMessage, on_delete=models.CASCADE)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    
+    def get_images(self):
+        return Image.objects.filter(status_message=self.status_message)
+    
+    
+

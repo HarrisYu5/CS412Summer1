@@ -1,22 +1,57 @@
+{#File: mini_fb/show_profile.html#}
+{#Author: Harris Yu 2025-06-05#}
+{#Show the details of a single profile. contains all status messages. You can update and delete status messages#}
+{#You can also update the profile#}
 {% extends "mini_fb/base.html" %}
 
 {% block content %}
-    <p>
-        {{ profile.first_name }} {{ profile.last_name }} - {{ profile.city }} - {{ profile.email }}
-        <br>
+<header>
+    <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+    <p>{{ profile.city }} ({{ profile.email }})</p>
+    <figure>
         <img src="{{ profile.profile_pic_url }}" alt="Image of {{ profile.first_name }} {{ profile.last_name }}">
-    </p>
+    </figure>
+    <p><a href="{% url 'update_profile' profile.pk %}">Update Profile</a></p>
+</header>
 
-    <h2>Status Messages</h2>
-    <p>
-        <a href="{% url 'create_status' profile.pk %}">Create a New Status</a>
-    <ul>
-        {% for status in profile.get_status_messages %}
-            <li>
-                <strong>{{ status.timestamp }}</strong>: {{ status.message }}
-            </li>
-        {% empty %}
-            <li>No status messages available.</li>
-        {% endfor %}
-    </ul>
+<main>
+    <section>
+        <header>
+            <h2>Status Messages</h2>
+            <p><a href="{% url 'create_status' profile.pk %}">Create a New Status</a></p>
+        </header>
+
+        {% if profile.get_status_messages %}
+            <ul>
+                {% for status in profile.get_status_messages %}
+                    <li>
+                        <article>
+                            <header>
+                                <p>Posted on: {{ status.timestamp }}</p>
+                            </header>
+
+                            <p>{{ status.message }}</p>
+
+                            {% if status.statusimage_set.all %}
+                                <figure>
+                                    {% for status_image in status.statusimage_set.all %}
+                                        <img src="{{ status_image.image.image_file.url }}" alt="{{ status_image.image.caption }}">
+                                        {% if status_image.image.caption %}
+                                            <figcaption>{{ status_image.image.caption }}</figcaption>
+                                        {% endif %}
+                                    {% endfor %}
+                                </figure>
+                            {% endif %}
+
+                            <p><a href="{% url 'delete_status_message' status.pk %}">Delete</a></p>
+                            <p><a href="{% url 'update_status_message' status.pk %}">Update</a></p>
+                        </article>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No status messages available.</p>
+        {% endif %}
+    </section>
+</main>
 {% endblock %}
