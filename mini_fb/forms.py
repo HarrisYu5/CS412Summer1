@@ -17,12 +17,12 @@ class CreateStatusMessageForm(forms.ModelForm):
     class Meta:
         model = StatusMessage
         fields = ['message']
-
+#form for updating a profile
 class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['city', 'email', 'profile_pic_url']
-
+#form for updating a status message
 class UpdateStatusMessageForm(forms.ModelForm):
     class Meta:
         model = StatusMessage

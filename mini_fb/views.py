@@ -60,7 +60,7 @@ class CreateStatusMessageView(CreateView):
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
-
+#update a profile with a form
 class UpdateProfileView(UpdateView):
     model = Profile
     form_class = UpdateProfileForm
@@ -68,29 +68,29 @@ class UpdateProfileView(UpdateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
-
+#if the form is valid, redirect to the profile page
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
-
+#for deleting a status message, we use a confirmation page
 class DeleteStatusMessageView(DeleteView):
     template_name = 'mini_fb/delete_status_form.html'
     model = StatusMessage
     context_object_name = 'status_message'
 
-
+#if the deletion is successful, redirect to the profile page
     def get_success_url(self):
         profile = self.object.profile
         return reverse('show_profile', kwargs={'pk': profile.pk})
 
-
+#update a status message with a form
 class UpdateStatusMessageView(UpdateView):
     model = StatusMessage
     form_class = UpdateStatusMessageForm
     template_name = 'mini_fb/update_status_form.html'
-
+# If the form is valid, save the changes
     def form_valid(self, form):
         return super().form_valid(form)
-
+#if succesful, redirect to the profile page
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
