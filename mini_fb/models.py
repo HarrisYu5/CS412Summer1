@@ -22,6 +22,18 @@ class Profile(models.Model):
     #get all status messages for this profile
     def get_status_messages(self):
         return StatusMessage.objects.filter(profile=self)
+    
+    #get all friends for this profile
+    def get_friends(self):
+        id1 = Friend.objects.filter(profile1=self)
+        id2 = Friend.objects.filter(profile2=self)
+        friends = []
+        for friend in id1:
+            friends.append(friend.profile2)
+        for friend in id2:
+            friends.append(friend.profile1)
+        return list(set(friends)) #remove duplicates
+    
 
 #status message model
 class StatusMessage(models.Model):
@@ -47,5 +59,11 @@ class StatusImage(models.Model):
     def get_images(self):
         return Image.objects.filter(status_message=self.status_message)
     
+class Friend(models.Model):
+    profile1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile1')
+    profile2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile2')
     
+
+    def __str__(self):
+        return f"{self.profile1.first_name} {self.profile1.last_name} is friends with {self.profile2.first_name} {self.profile2.last_name}"
 

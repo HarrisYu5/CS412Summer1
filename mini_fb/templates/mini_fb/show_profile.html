@@ -20,6 +20,20 @@
             <h2>Status Messages</h2>
             <p><a href="{% url 'create_status' profile.pk %}">Create a New Status</a></p>
         </header>
+        {% if profile.get_friends %}
+            <ul>
+                {% for friend in profile.get_friends %}
+                    <li>
+                        <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+                        <figure>
+                            <img src="{{ friend.profile_pic_url }}" alt="Image of {{ friend.first_name }} {{ friend.last_name }}">
+                        </figure>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No friends available.</p>
+        {% endif %}
 
         {% if profile.get_status_messages %}
             <ul>
