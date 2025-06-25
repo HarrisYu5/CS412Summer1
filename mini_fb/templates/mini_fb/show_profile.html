@@ -20,6 +20,8 @@
             <h2>Status Messages</h2>
             <p><a href="{% url 'create_status' profile.pk %}">Create a New Status</a></p>
         </header>
+
+        <h3>Friends List</h3>
         {% if profile.get_friends %}
             <ul>
                 {% for friend in profile.get_friends %}
