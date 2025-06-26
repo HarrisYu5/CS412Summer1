@@ -1,0 +1,13 @@
+{% extends "project/base.html" %}
+{% block content %}
+    <a href="{% url 'update_profile' userProfile.pk %}">Edit Profile</a>
+  <h1>{{ userProfile.user.username }}’s Profile</h1>
+  <ul>
+    <li>Sex: {{ userProfile.get_sex_display }}</li>
+    <li>Age: {{ userProfile.age }}</li>
+    <li>Height: {{ userProfile.height }} cm</li>
+    <li>Weight: {{ userProfile.weight }} kg</li>
+    <li>Override Calorie Goal: {{ userProfile.override_calories_goal }}</li>
+    <li>Calculated Calorie Goal: {{ userProfile.calories_goal }}</li>
+  </ul>
+{% endblock %}

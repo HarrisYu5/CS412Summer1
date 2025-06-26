@@ -1,0 +1,29 @@
+{% load static %}
+<html>
+  <head>
+    <title>Calories Tracker App</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+  </head>
+  <body>
+    <nav>
+      <ul>
+        {% if user.is_authenticated %}
+          <li>Welcome, {{ user.username }}!</li>
+          <li><a href="{% url 'profile' user.profile.pk %}">Profile</a></li>
+          <li>
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+                <input type="submit" value="Logout">
+            </form>
+          </li>
+        {% else %}
+          <li>Please login or register for an account</li>
+          <li><a href="{% url 'registration' %}">Register</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+  <h2>Update Profile</h2>
+  <form method="post" enctype="multipart/form-data"
+        action="{% url 'update_profile' pk=object.pk %}">
+    {% csrf_token %}
+    <table>
+      {% for field in form %}
+        <tr>
+          <th>{{ field.label }}</th>
+          <td>{{ field }}</td>
+        </tr>
+      {% endfor %}
+      <tr>
+        <td></td>
+        <td>
+          <button type="submit">
+            Update Profile
+          </button>
+        </td>
+    </tr>
+    </table>
+  </form>
+{% endblock %}
+     

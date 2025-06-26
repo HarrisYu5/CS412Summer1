@@ -1,0 +1,17 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<table>
+
+
+    {% for voter in voters %}
+    <tr>
+        <td>{{ voter.street_number }} {{ voter.street_name }}</td>
+        <td>{{ voter.city }}</td>
+        <td>{{ voter.state }}</td>
+        <td>{{ voter.zip_code }}</td>
+        <td>{{ voter.dob }}</td>
+        <td>{{ voter.party_affiliation }}</td>
+</table>
+
+{%endblock %}
