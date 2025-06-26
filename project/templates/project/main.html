@@ -6,9 +6,9 @@
     <ul>
       {% for entry in foodEntries %}
         <li>
-          {{ entry.food.name }} &ndash;
+          {{ entry.food.name }} &ndash; {{ entry.food.serving_size }} per serving &ndash;
           {{ entry.number_of_servings }} serving{% if entry.number_of_servings|floatformat:"0" != "1" %}s{% endif %}
-          &mdash; {{ entry.calories }} kcal
+          &mdash; {{ entry.calories }} kcal in total
         </li>
       {% endfor %}
     </ul>
