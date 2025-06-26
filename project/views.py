@@ -38,6 +38,16 @@ class MainPageView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['daily_entry'] = self.daily_entry
         print('daily_entry in context:', context)
+
+        profile = self.request.user.profile
+        today = timezone.localdate()
+        past_week = today - timedelta(days=7)
+        past = DailyEntry.objects.filter(
+            user_profile=profile,
+            date__range=(past_week, today)
+        ).order_by('-date')
+        context['past_entries'] = past
+        print('past_entries:', context['past_entries'])
         return context
          
 

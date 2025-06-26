@@ -29,4 +29,20 @@
     {% endif %}
 {% endif %}
 
+<h2>Past Week's Food Logs</h2>
+{% if past_entries %}
+    <ul>
+        {% for entry in past_entries %}
+        <li>
+        {{ entry.date }} -
+        {% if entry.remaining_calories < 0 %}
+           {{ entry.remaining_calories }} kcal excess
+        {% else %}
+           {{ entry.remaining_calories }} kcal deficit
+        {% endif %}
+      </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 {% endblock %}
