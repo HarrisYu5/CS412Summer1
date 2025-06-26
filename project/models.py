@@ -97,6 +97,8 @@ class DailyEntry(models.Model):
             total += entry.food.calories_per_serving * entry.number_of_servings
 
         return total
+    def remaining_calories(self):
+        return self.user_profile.calories_goal() - self.total_calories()
 
 class FoodEntry(models.Model):
     daily_entry = models.ForeignKey(DailyEntry, on_delete=models.CASCADE)

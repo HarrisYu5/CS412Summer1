@@ -1,0 +1,10 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h2>Create Food Entry</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Add Food Entry</button>
+</form>
+{% endblock %}

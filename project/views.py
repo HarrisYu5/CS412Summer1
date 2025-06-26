@@ -61,3 +61,30 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
             return super().form_valid(form)
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'pk': self.object.pk})
+    
+class CreateFoodEntryView(LoginRequiredMixin, CreateView):
+    template_name = 'project/create_food_entry.html'
+    form_class = CreateFoodEntryForm
+    
+    def form_valid(self, form):
+        profile = self.request.user.profile
+        today = timezone.localdate()
+        daily_entry, created = DailyEntry.objects.get_or_create(
+            user_profile=profile,
+            date=today
+        )
+        food_entry = form.save(commit=False)
+        food_entry.daily_entry = daily_entry
+        food_entry.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('main')
+    
+class DeleteFoodEntryView(LoginRequiredMixin, DeleteView):
+    context_object_name = 'foodEntry'
+    template_name = 'project/delete_food_entry.html'
+    model = FoodEntry
+
+    def get_success_url(self):
+        return reverse_lazy('main')

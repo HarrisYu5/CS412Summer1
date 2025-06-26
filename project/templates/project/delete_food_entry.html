@@ -1,0 +1,12 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h3>Are you sure you want to delete this food entry?</h3>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+    <a href="{% url 'main' %}">Cancel</a>
+</form>
+
+
+{% endblock %}

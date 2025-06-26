@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from .models import UserProfile
+from .models import *
 
 
 class RegistrationForm(UserCreationForm):
@@ -31,5 +31,9 @@ class UpdateProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['age', 'weight', 'height', 'override_calories_goal', 'sex']
 
-        
+class CreateFoodEntryForm(forms.ModelForm):
+    class Meta:
+        model = FoodEntry
+        fields = ['food', 'number_of_servings']
+
 

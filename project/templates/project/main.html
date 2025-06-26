@@ -2,21 +2,31 @@
 
 {% block content %}
 <h1>Today's Food Log ({{ daily_entry.date }})</h1>
+<a href="{% url 'create_food_entry' %}">Add Food Entry</a>
 {% if foodEntries %}
     <ul>
-      {% for entry in foodEntries %}
+        {% for entry in foodEntries %}
         <li>
-          {{ entry.food.name }} &ndash; {{ entry.food.serving_size }} per serving &ndash;
-          {{ entry.number_of_servings }} serving{% if entry.number_of_servings|floatformat:"0" != "1" %}s{% endif %}
-          &mdash; {{ entry.calories }} kcal in total
+            {{ entry.food.name }} &ndash; {{ entry.food.serving_size }} per serving &ndash;
+            {{ entry.number_of_servings }} serving{% if entry.number_of_servings|floatformat:"0" != "1" %}s{% endif %}
+            &mdash; {{ entry.calories }} kcal in total
+            <a href="{% url 'delete_food_entry' entry.pk %}">Delete</a>
         </li>
-      {% endfor %}
+        {% endfor %}
     </ul>
 
     <p><strong>Total calories:</strong> {{ daily_entry.total_calories }}</p>
-  {% else %}
-    <p>No foods logged yet today.</p>
-  {% endif %}
+    {% if daily_entry.remaining_calories < 0 %}
+        <p><strong>You have exceeded your calorie limit by:</strong>
+        {{ daily_entry.remaining_calories}}</p>
 
+    {% elif daily_entry.remaining_calories > 0 %}
+        <p><strong>Remaining calories allowance:</strong>
+        {{ daily_entry.remaining_calories }}</p>
+
+    {% else %}
+        <p>No foods logged yet today.</p>
+    {% endif %}
+{% endif %}
 
 {% endblock %}
