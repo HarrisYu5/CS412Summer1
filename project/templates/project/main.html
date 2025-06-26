@@ -1,0 +1,22 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h1>Today's Food Log ({{ daily_entry.date }})</h1>
+{% if foodEntries %}
+    <ul>
+      {% for entry in foodEntries %}
+        <li>
+          {{ entry.food.name }} &ndash;
+          {{ entry.number_of_servings }} serving{% if entry.number_of_servings|floatformat:"0" != "1" %}s{% endif %}
+          &mdash; {{ entry.calories }} kcal
+        </li>
+      {% endfor %}
+    </ul>
+
+    <p><strong>Total calories:</strong> {{ daily_entry.total_calories }}</p>
+  {% else %}
+    <p>No foods logged yet today.</p>
+  {% endif %}
+
+
+{% endblock %}

@@ -9,6 +9,7 @@
       <ul>
         {% if user.is_authenticated %}
           <li>Welcome, {{ user.username }}!</li>
+            <li><a href="{% url 'main' %}">Dashboard</a></li>
           <li><a href="{% url 'profile' user.profile.pk %}">Profile</a></li>
           <li>
             <form action="{% url 'logout' %}" method="POST">
