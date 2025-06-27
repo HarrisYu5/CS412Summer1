@@ -1,48 +1,71 @@
-{% extends 'project/base.html' %}
+<!--
+File: main.html
+Author: Harris Yu, hy002421@bu.edu, 2025-06-26
+Description: The main dashboard of the app. It contains the food log for the day, a summary of the user's calorie intake, and a history of past food logs.
+-->
+{% extends "project/base.html" %}
 
 {% block content %}
-<h1>Today's Food Log ({{ daily_entry.date }})</h1>
-<a href="{% url 'create_food_entry' %}">Add Food Entry</a>
-{% if foodEntries %}
-    <ul>
+<div class="container">
+
+  <h1>Today’s Food Log <small>({{ daily_entry.date }})</small></h1>
+
+  <div class="card">
+    <a href="{% url 'create_food_entry' %}" class="button">+ Add Food</a>
+
+    {% if foodEntries %}
+      <ul class="food-list">
         {% for entry in foodEntries %}
-        <li>
-            {{ entry.food.name }} &ndash; {{ entry.food.serving_size }} per serving &ndash;
-            {{ entry.number_of_servings }} serving{% if entry.number_of_servings|floatformat:"0" != "1" %}s{% endif %}
-            &mdash; {{ entry.calories }} kcal in total
-            <a href="{% url 'delete_food_entry' entry.pk %}">Delete</a>
-        </li>
+          <li>
+            <div>
+              <strong>{{ entry.food.name }}</strong>
+              <small>— {{ entry.number_of_servings }} × {{ entry.food.serving_size }} ({{ entry.calories }} kcal)</small>
+            </div>
+            <form action="{% url 'delete_food_entry' entry.pk %}">
+              {% csrf_token %}
+              <button class="delete" title="Remove">x</button>
+            </form>
+          </li>
         {% endfor %}
-    </ul>
-
-    <p><strong>Total calories:</strong> {{ daily_entry.total_calories }}</p>
-    {% if daily_entry.remaining_calories < 0 %}
-        <p><strong>You have exceeded your calorie limit by:</strong>
-        {{ daily_entry.remaining_calories}}</p>
-
-    {% elif daily_entry.remaining_calories > 0 %}
-        <p><strong>Remaining calories allowance:</strong>
-        {{ daily_entry.remaining_calories }}</p>
-
+      </ul>
     {% else %}
-        <p>No foods logged yet today.</p>
+      <p class="alert alert-success">No foods logged yet today.</p>
     {% endif %}
-{% endif %}
+  </div>
 
-<h2>Past Week's Food Logs</h2>
-{% if past_entries %}
-    <ul>
+  <div class="card">
+    <h2>Summary</h2>
+    <p><strong>Total:</strong> {{ daily_entry.total_calories }} kcal of {{ daily_entry.profile.calorie_goal }} kcal</p>
+
+    {% if daily_entry.remaining_calories < 0 %}
+      <p class="alert alert-danger">Over goal by {{ daily_entry.remaining_calories }} kcal</p>
+    {% else %}
+      <p class="alert alert-success">{{ daily_entry.remaining_calories }} kcal remaining</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>Past Week’s Food Logs</h2>
+    {% if past_entries %}
+      <ul class="food-list">
         {% for entry in past_entries %}
-        <li>
-        {{ entry.date }} -
-        {% if entry.remaining_calories < 0 %}
-           {{ entry.remaining_calories }} kcal excess
-        {% else %}
-           {{ entry.remaining_calories }} kcal deficit
-        {% endif %}
-      </li>
+          <li>
+            <div>
+              <strong>{{ entry.date }}</strong>
+              {% if entry.remaining_calories < 0 %}
+                <small class="alert alert-danger">{{ entry.remaining_calories }} kcal excess</small>
+              {% else %}
+                <small class="alert alert-success">{{ entry.remaining_calories }} kcal deficit</small>
+              {% endif %}
+            </div>
+          </li>
         {% endfor %}
-    </ul>
-{% endif %}
+      </ul>
+    {% else %}
+      <p class="alert alert-success">No entries in the past week.</p>
+    {% endif %}
+  </div>
 
+
+</div>
 {% endblock %}

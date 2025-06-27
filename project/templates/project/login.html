@@ -1,11 +1,20 @@
-{% extends 'project/base.html' %}
-
+<!--
+File: login.html
+Author: Harris Yu, hy002421@bu.edu, 2025-06-26
+Description: template that lets users log in 
+-->
+{% extends "project/base.html" %}
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="hidden" name="next" value="{% url 'main' %}">
-    <button type="submit">Login</button>
-</form>
+<div class="container">
+  <div class="card" style="max-width:420px;margin-inline:auto;">
+    <h2>Login</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="hidden" name="next" value="{% url 'main' %}">
+      <input type="submit" value="Login">
+    </form>
+  </div>
+</div>
 {% endblock %}

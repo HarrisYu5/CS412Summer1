@@ -1,13 +1,26 @@
+<!--
+File: profile.html
+Author: Harris Yu, hy002421@bu.edu, 2025-06-26
+Description: template that displays user profile information, has a button to the edit profile page
+-->
 {% extends "project/base.html" %}
 {% block content %}
-    <a href="{% url 'update_profile' userProfile.pk %}">Edit Profile</a>
-  <h1>{{ userProfile.user.username }}’s Profile</h1>
-  <ul>
-    <li>Sex: {{ userProfile.get_sex_display }}</li>
-    <li>Age: {{ userProfile.age }}</li>
-    <li>Height: {{ userProfile.height }} cm</li>
-    <li>Weight: {{ userProfile.weight }} kg</li>
-    <li>Override Calorie Goal: {{ userProfile.override_calories_goal }}</li>
-    <li>Calculated Calorie Goal: {{ userProfile.calories_goal }}</li>
-  </ul>
+<div class="container">
+  <div class="card" style="max-width:520px;margin-inline:auto;">
+    <h2>{{ userProfile.user.username }}’s Profile</h2>
+
+    <table>
+      <tr><th>Height</th><td>{{ userProfile.height }} cm</td></tr>
+      <tr><th>Weight</th><td>{{ userProfile.weight }} kg</td></tr>
+      <tr><th>Age</th><td>{{ userProfile.age }}</td></tr>
+      <tr><th>Sex</th><td>{{ userProfile.get_sex_display }}</td></tr>
+      <tr><th>Override Calorie Goal</th><td>{{ userProfile.override_calories_goal }}</td></tr>
+      <tr><th>Calculated Calorie Goal</th><td>{{ userProfile.calories_goal }} kcal</td></tr>
+    </table>
+
+    <p style="margin-top:1rem;">
+      <a href="{% url 'update_profile' userProfile.pk %}" class="button">Edit profile</a>
+    </p>
+  </div>
+</div>
 {% endblock %}

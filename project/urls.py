@@ -1,8 +1,13 @@
+"""
+File: urls.py
+Author: Harris Yu, hy002421@bu.edu, 2025-06-26
+Description: Contains URL patterns for the project.
+"""
 from django.urls import path
 from .views import  *
 from django.contrib.auth import views as auth_views
 urlpatterns = [
-    path('', WelcomeView.as_view(), name='welcome'),
+    path('', WelcomeView.as_view(), name='welcome'), 
     path('main/', MainPageView.as_view(), name='main'),
    path('registration/', RegistrationView.as_view(), name='registration'),
    path('login/', auth_views.LoginView.as_view(template_name='project/login.html'), name='login'),

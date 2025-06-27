@@ -1,26 +1,29 @@
+<!--
+File: update_profile.html
+Author: Harris Yu, hy002421@bu.edu, 2025-06-26
+Description: template that lets users update their profile information.
+-->
 {% extends "project/base.html" %}
-
 {% block content %}
-  <h2>Update Profile</h2>
-  <form method="post" enctype="multipart/form-data"
-        action="{% url 'update_profile' pk=object.pk %}">
-    {% csrf_token %}
-    <table>
-      {% for field in form %}
-        <tr>
-          <th>{{ field.label }}</th>
-          <td>{{ field }}</td>
-        </tr>
-      {% endfor %}
-      <tr>
-        <td></td>
-        <td>
-          <button type="submit">
-            Update Profile
-          </button>
-        </td>
-    </tr>
-    </table>
-  </form>
+<div class="container">
+  <div class="card" style="max-width:520px;margin-inline:auto;">
+    <h2>Edit Profile</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        {{ form.height.label_tag }}    {{ form.height }}
+        {{ form.weight.label_tag }}    {{ form.weight }}
+        {{ form.age.label_tag }}       {{ form.age }}
+        {{ form.sex.label_tag }}       {{ form.sex }}
+      </div>
+
+      {{ form.override_calories_goal.label_tag }}
+      {{ form.override_calories_goal }}
+
+      <input type="submit" value="Save">
+    </form>
+  </div>
+</div>
 {% endblock %}
-     

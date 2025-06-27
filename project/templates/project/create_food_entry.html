@@ -1,10 +1,18 @@
+<!--
+File: create_food_entry.html
+Author: Harris Yu, hy002421@bu.edu, 2025-06-26
+Description: template that lets users create a new food entry.
+-->
 {% extends 'project/base.html' %}
 
 {% block content %}
-<h2>Create Food Entry</h2>
-<form method="post">
+<h2 style="text-align: center;">Create Food Entry</h2>
+<div class="card" style="max-width: 40%; margin: auto;">
+    <form method="post">
     {% csrf_token %}
     {{ form }}
     <button type="submit">Add Food Entry</button>
 </form>
+
+</div>
 {% endblock %}
